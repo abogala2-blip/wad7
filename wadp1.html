@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User Registration</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #000;
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    .card {
+        background: #fff;
+        padding: 25px;
+        width: 380px;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(255,255,255,0.15);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .field {
+        margin-bottom: 14px;
+    }
+
+    .field input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+    }
+
+    .field input:focus {
+        border-color: #444;
+    }
+
+    .gender-box {
+        display: flex;
+        gap: 15px;
+        margin-top: 5px;
+    }
+
+    .error {
+        color: crimson;
+        font-size: 13px;
+        margin-top: 3px;
+    }
+
+    .terms {
+        font-size: 14px;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background: #000;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #333;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Create Account</h2>
+
+    <form onsubmit="return checkForm()">
+
+        <div class="field">
+            <input type="text" id="uname" placeholder="Full Name">
+            <div class="error" id="uErr"></div>
+        </div>
+
+        <div class="field">
+            <input type="text" id="mail" placeholder="Email Address">
+            <div class="error" id="mErr"></div>
+        </div>
+
+        <div class="field">
+            <input type="password" id="pass" placeholder="Password">
+            <div class="error" id="pErr"></div>
+        </div>
+
+        <div class="field">
+            <input type="password" id="cpass" placeholder="Confirm Password">
+            <div class="error" id="cpErr"></div>
+        </div>
+
+        <div class="field">
+            <input type="text" id="phone" placeholder="Mobile Number">
+            <div class="error" id="phErr"></div>
+        </div>
+
+        <div class="field">
+            Gender
+            <div class="gender-box">
+                <label><input type="radio" name="gen" value="M"> Male</label>
+                <label><input type="radio" name="gen" value="F"> Female</label>
+            </div>
+            <div class="error" id="gErr"></div>
+        </div>
+
+        <div class="field terms">
+            <input type="checkbox" id="agree"> I agree to the Terms & Conditions
+            <div class="error" id="tErr"></div>
+        </div>
+
+        <button type="submit">Sign Up</button>
+
+    </form>
+</div>
+
+<script>
+function checkForm() {
+    let ok = true;
+    document.querySelectorAll(".error").forEach(e => e.innerText = "");
+
+    let n = uname.value.trim();
+    let e = mail.value.trim();
+    let p = pass.value;
+    let cp = cpass.value;
+    let ph = phone.value.trim();
+    let g = document.querySelector('input[name="gen"]:checked');
+    let t = agree.checked;
+
+    if (n === "") {
+        uErr.innerText = "Name cannot be empty";
+        ok = false;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) {
+        mErr.innerText = "Invalid email format";
+        ok = false;
+    }
+
+    if (p.length < 8) {
+        pErr.innerText = "Minimum 8 characters required";
+        ok = false;
+    }
+
+    if (p !== cp) {
+        cpErr.innerText = "Passwords do not match";
+        ok = false;
+    }
+
+    if (!/^[0-9]{10}$/.test(ph)) {
+        phErr.innerText = "Enter 10-digit mobile number";
+        ok = false;
+    }
+
+    if (!g) {
+        gErr.innerText = "Select your gender";
+        ok = false;
+    }
+
+    if (!t) {
+        tErr.innerText = "Accept terms to continue";
+        ok = false;
+    }
+
+    return ok;
+}
+</script>
+
+</body>
+</html>
